@@ -5,10 +5,8 @@ namespace OopCatExercise
 	{
         private bool AsleepStatus;
 
-        public string Setting = "domestic";
-        public int AverageHeight = 23;
-
-        public abstract string Eat();
+        public string Setting;
+        public int AverageHeight;
 
         public bool IsAsleep
         {
@@ -16,39 +14,53 @@ namespace OopCatExercise
             set { AsleepStatus = value; }
         }
 
-        public void GoToSleep()
+        public abstract string Eat();
+
+        public virtual void GoToSleep()
         {
             IsAsleep = true;
         }
 
-        public void WakeUp()
+        public virtual void WakeUp()
         {
             IsAsleep = false;
         }
     }
     public class DomesticCat : Cat
     {
+        public DomesticCat()
+        {
+            Setting = "domestic";
+            AverageHeight = 23;
+        }
+
         public override string Eat()
         {
-            return "Purrrrrrr";
-            //return "It will do I suppose";
+            const double HALF_HALF_CHANCE = 0.5;
+            string returnString = "Purrrrrrr";
+            var random = new Random().NextDouble();
+            if (random < HALF_HALF_CHANCE) returnString += " ~ It will do I suppose";
+            return returnString;
         }
     }
     public class LionCat : Cat
     {
-        public new int AverageHeight = 1100;
-        public new string Setting = "wild";
-        public override string Eat()
+        public LionCat()
         {
-            return "Roar!!!!";
+            Setting = "wild"; 
+            AverageHeight = 1100;
         }
+
+        public override string Eat() => "Roar!!!!";
     }
     public class CheetahCat : Cat
     {
-        public new string Setting = "wild";
-        public override string Eat()
+        public CheetahCat()
         {
-            return "Zzzzzzz";
+            Setting = "wild";
+            AverageHeight = 800;
         }
+
+        public override string Eat() => "Zzzzzzz";
     }
 }
